@@ -15,7 +15,8 @@ import org.apache.cordova.CordovaWebView;
 import android.app.Activity;
 import android.util.Log;
 //
-import com.google.android.gms.common.GooglePlayServicesUtil;
+//import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
 import android.content.Intent;
 import com.google.example.games.basegameutils.GameHelper;
 import com.google.android.gms.common.ConnectionResult;
@@ -72,8 +73,8 @@ public class Game extends CordovaPlugin implements GameHelper.GameHelperListener
 	@Override
 	public boolean execute(String action, JSONArray args,CallbackContext callbackContext) throws JSONException {
 		PluginResult result = null;
-		
-        if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this.cordova.getActivity()) != 0) {
+		GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+        if (api.isGooglePlayServicesAvailable(this.cordova.getActivity()) != 0) {
             Log.e(LOG_TAG, "Google Play Services are unavailable");
             callbackContext.error("Unavailable");
             return true;
